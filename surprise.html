@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SECRET 💀</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        html,
+        body {
+
+            width: 100%;
+            min-height: 100%;
+
+            overflow: hidden;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #000;
+
+            color: white;
+
+        }
+
+
+        body {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            cursor: pointer;
+
+        }
+
+
+        #screen {
+
+            position: relative;
+
+            width: 100vw;
+
+            height: 100vh;
+
+            overflow: hidden;
+
+            background:
+                #000;
+
+        }
+
+
+        /* =================================================
+           INTRO
+        ================================================= */
+
+        #intro {
+
+            position: absolute;
+
+            inset: 0;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            background: #000;
+
+            z-index: 100;
+
+        }
+
+
+        #loading-text {
+
+            font-size:
+                clamp(18px, 4vw, 28px);
+
+            font-weight: 900;
+
+            letter-spacing: 3px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        #loading-bar {
+
+            width:
+                min(80vw, 500px);
+
+            height: 22px;
+
+            border:
+                3px solid white;
+
+            padding: 3px;
+
+        }
+
+
+        #loading-fill {
+
+            width: 0%;
+
+            height: 100%;
+
+            background: white;
+
+        }
+
+
+        #loading-percent {
+
+            margin-top: 12px;
+
+            font-size: 16px;
+
+            color: #aaa;
+
+        }
+
+        #audio-prompt {
+
+            margin-top: 22px;
+
+            font-size: 13px;
+
+            letter-spacing: 1.5px;
+
+            color: #ffdd33;
+
+            animation: audioPromptPulse 0.9s ease-in-out infinite alternate;
+
+        }
+
+        @keyframes audioPromptPulse {
+
+            from { opacity: 0.45; }
+
+            to { opacity: 1; }
+
+        }
+
+
+        /* =================================================
+           BRAINROT
+        ================================================= */
+
+        #brainrot {
+
+            position: absolute;
+
+            inset: 0;
+
+            display: none;
+
+            justify-content: center;
+
+            align-items: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ff00aa,
+                    #5a00ff,
+                    #00d9ff,
+                    #00ff66
+                );
+
+            background-size:
+                400% 400%;
+
+            animation:
+                backgroundChaos
+                2s linear infinite;
+
+        }
+
+
+        @keyframes backgroundChaos {
+
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+
+        }
+
+
+        #message {
+
+            position: absolute;
+
+            top: 9%;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            width: 95%;
+
+            text-align: center;
+
+            font-size:
+                clamp(
+                    28px,
+                    8vw,
+                    80px
+                );
+
+            font-weight: 1000;
+
+            line-height: 1;
+
+            text-transform: uppercase;
+
+            color: white;
+
+            text-shadow:
+                5px 5px 0 #000,
+                -3px -3px 0 #000;
+
+            z-index: 20;
+
+        }
+
+
+        #friend {
+
+            width:
+                min(
+                    55vw,
+                    420px
+                );
+
+            max-height: 55vh;
+
+            object-fit: contain;
+
+            z-index: 10;
+
+            filter:
+                drop-shadow(
+                    0 15px 15px
+                    rgba(0,0,0,.5)
+                );
+
+            animation:
+                spinHead
+                1.8s
+                linear
+                infinite;
+
+        }
+
+
+        @keyframes spinHead {
+
+            0% {
+                transform:
+                    rotate(0deg)
+                    scale(1);
+            }
+
+            25% {
+                transform:
+                    rotate(90deg)
+                    scale(1.12);
+            }
+
+            50% {
+                transform:
+                    rotate(180deg)
+                    scale(.92);
+            }
+
+            75% {
+                transform:
+                    rotate(270deg)
+                    scale(1.12);
+            }
+
+            100% {
+                transform:
+                    rotate(360deg)
+                    scale(1);
+            }
+
+        }
+
+
+        #bottom-message {
+
+            position: absolute;
+
+            bottom: 8%;
+
+            left: 50%;
+
+            transform:
+                translateX(-50%);
+
+            width: 90%;
+
+            text-align: center;
+
+            font-size:
+                clamp(
+                    16px,
+                    4vw,
+                    30px
+                );
+
+            font-weight: 900;
+
+            color: white;
+
+            text-shadow:
+                3px 3px #000;
+
+            z-index: 20;
+
+        }
+
+
+        /* =================================================
+           RANDOM BRAINROT TEXT
+        ================================================= */
+
+        .floating-text {
+
+            position: absolute;
+
+            font-weight: 1000;
+
+            font-size:
+                clamp(
+                    20px,
+                    5vw,
+                    45px
+                );
+
+            color: white;
+
+            text-shadow:
+                4px 4px #000;
+
+            pointer-events: none;
+
+            white-space: nowrap;
+
+            animation:
+                floatAround
+                1.8s
+                linear
+                forwards;
+
+            z-index: 5;
+
+        }
+
+
+        @keyframes floatAround {
+
+            0% {
+
+                transform:
+                    scale(.4)
+                    rotate(-20deg);
+
+                opacity: 0;
+
+            }
+
+            20% {
+
+                opacity: 1;
+
+            }
+
+            80% {
+
+                opacity: 1;
+
+            }
+
+            100% {
+
+                transform:
+                    scale(1.5)
+                    rotate(20deg);
+
+                opacity: 0;
+
+            }
+
+        }
+
+
+        /* =================================================
+           FINAL
+        ================================================= */
+
+        #final {
+
+            position: absolute;
+
+            inset: 0;
+
+            display: none;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            text-align: center;
+
+            background: #000;
+
+            z-index: 200;
+
+            padding: 30px;
+
+        }
+
+
+        #final h1 {
+
+            font-size:
+                clamp(
+                    32px,
+                    8vw,
+                    80px
+                );
+
+            margin-bottom: 20px;
+
+            text-shadow:
+                5px 5px #222;
+
+        }
+
+
+        #final p {
+
+            max-width: 700px;
+
+            font-size:
+                clamp(
+                    16px,
+                    3vw,
+                    25px
+                );
+
+            color: #bbb;
+
+            line-height: 1.6;
+
+            margin-bottom: 30px;
+
+        }
+
+
+        #return-button {
+
+            border: none;
+
+            padding:
+                15px 28px;
+
+            border-radius: 10px;
+
+            background: white;
+
+            color: black;
+
+            font-size: 18px;
+
+            font-weight: 900;
+
+            cursor: pointer;
+
+        }
+
+
+        #return-button:hover {
+
+            transform:
+                scale(1.05);
+
+        }
+
+
+        /* =================================================
+           SHAKE
+        ================================================= */
+
+        .shake {
+
+            animation:
+                screenShake
+                .12s
+                linear;
+
+        }
+
+
+        @keyframes screenShake {
+
+            0% {
+                transform:
+                    translate(0,0);
+            }
+
+            25% {
+                transform:
+                    translate(-12px, 8px);
+            }
+
+            50% {
+                transform:
+                    translate(12px, -8px);
+            }
+
+            75% {
+                transform:
+                    translate(-8px, -5px);
+            }
+
+            100% {
+                transform:
+                    translate(0,0);
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div id="screen">
+
+
+    <!-- ===============================================
+         LOADING SCREEN
+    ================================================ -->
+
+    <div id="intro">
+
+        <div id="loading-text">
+
+            ANALYZING YOUR DECISION...
+
+        </div>
+
+
+        <div id="loading-bar">
+
+            <div id="loading-fill"></div>
+
+        </div>
+
+
+        <div id="loading-percent">
+
+            0%
+
+        </div>
+
+        <div id="audio-prompt">
+            TAP ANYWHERE TO ENABLE SOUND
+        </div>
+
+    </div>
+
+
+
+    <!-- ===============================================
+         BRAINROT
+    ================================================ -->
+
+    <div id="brainrot">
+
+
+        <div id="message">
+            YOU ACTUALLY DID IT 💀
+        </div>
+
+
+        <img
+            id="friend"
+            src="head.png"
+            alt="The chosen one"
+        >
+
+
+        <div id="bottom-message">
+            BRO HAS UNLOCKED THE FORBIDDEN FAP
+        </div>
+
+
+    </div>
+
+
+
+    <!-- ===============================================
+         FINAL SCREEN
+    ================================================ -->
+
+    <div id="final">
+
+
+        <h1>
+            💀 YOU WON
+        </h1>
+
+
+        <p>
+
+            You survived 30 pipes just to
+            witness this completely unnecessary
+            piece of brainrot.
+
+            <br><br>
+
+            Your reward:
+
+            <strong>
+                absolutely nothing.
+            </strong>
+
+        </p>
+
+
+        <button id="return-button">
+
+            RETURN TO FAP IT OUT
+
+        </button>
+
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+"use strict";
+
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const intro =
+    document.getElementById(
+        "intro"
+    );
+
+
+const loadingText =
+    document.getElementById(
+        "loading-text"
+    );
+
+
+const loadingFill =
+    document.getElementById(
+        "loading-fill"
+    );
+
+
+const loadingPercent =
+    document.getElementById(
+        "loading-percent"
+    );
+
+
+const audioPrompt =
+    document.getElementById(
+        "audio-prompt"
+    );
+
+
+const brainrot =
+    document.getElementById(
+        "brainrot"
+    );
+
+
+const message =
+    document.getElementById(
+        "message"
+    );
+
+
+const bottomMessage =
+    document.getElementById(
+        "bottom-message"
+    );
+
+
+const final =
+    document.getElementById(
+        "final"
+    );
+
+
+const returnButton =
+    document.getElementById(
+        "return-button"
+    );
+
+
+const screen =
+    document.getElementById(
+        "screen"
+    );
+
+
+/* =====================================================
+   OPTIONAL AUDIO
+===================================================== */
+
+
+/*
+    If you put brainrot.mp3 in the same
+    folder, it will play during the
+    surprise.
+
+    If you don't have it, nothing breaks.
+*/
+
+const brainrotAudio =
+    new Audio("brainrot.mp3");
+
+
+brainrotAudio.loop =
+    true;
+
+
+brainrotAudio.volume =
+    0.65;
+
+
+function playBrainrotAudio() {
+
+    brainrotAudio
+        .play()
+        .then(
+            function() {
+
+                audioPrompt.hidden = true;
+
+            }
+        )
+        .catch(
+            function() {
+
+                /* A tap is needed when the browser blocks autoplay. */
+                audioPrompt.hidden = false;
+
+            }
+        );
+
+}
+
+
+/* =====================================================
+   LOADING SEQUENCE
+===================================================== */
+
+let progress = 0;
+
+
+const loadingMessages = [
+
+    "ANALYZING YOUR DECISION...",
+
+    "CHECKING BRAIN CELLS...",
+
+    "BRAIN CELLS NOT FOUND.",
+
+    "CONTACTING THE FAP COUNCIL...",
+
+    "COUNCIL HAS APPROVED IT.",
+
+    "PREPARING ABSOLUTE BRAINROT..."
+
+];
+
+
+let messageIndex = 0;
+
+
+const loadingInterval =
+    setInterval(
+        function() {
+
+            progress +=
+                Math.random() * 8 + 3;
+
+
+            if (
+                progress >= 100
+            ) {
+
+                progress = 100;
+
+                clearInterval(
+                    loadingInterval
+                );
+
+
+                loadingFill.style.width =
+                    "100%";
+
+
+                loadingPercent.textContent =
+                    "100%";
+
+
+                setTimeout(
+                    startBrainrot,
+                    700
+                );
+
+
+                return;
+
+            }
+
+
+            loadingFill.style.width =
+                progress + "%";
+
+
+            loadingPercent.textContent =
+                Math.floor(progress) + "%";
+
+
+            /*
+                Change loading message.
+            */
+
+            if (
+                progress >
+                (messageIndex + 1) *
+                16
+            ) {
+
+                messageIndex =
+                    Math.min(
+                        messageIndex + 1,
+                        loadingMessages.length - 1
+                    );
+
+
+                loadingText.textContent =
+                    loadingMessages[
+                        messageIndex
+                    ];
+
+            }
+
+        },
+        180
+    );
+
+
+/* =====================================================
+   START BRAINROT
+===================================================== */
+
+function startBrainrot() {
+
+    intro.style.display =
+        "none";
+
+
+    brainrot.style.display =
+        "flex";
+
+
+    /*
+        Try playing optional music.
+    */
+
+    playBrainrotAudio();
+
+
+    runBrainrotSequence();
+
+}
+
+
+/* =====================================================
+   BRAINROT MESSAGES
+===================================================== */
+
+const brainrotMessages = [
+
+    "WAIT...",
+
+    "HE DID IT.",
+
+    "30?!",
+
+    "BRO 💀",
+
+    "WHY",
+
+    "WHO LET HIM COOK",
+
+    "AURA: -999",
+
+    "BRAIN CELLS: 0",
+
+    "THE FAP COUNCIL APPROVES",
+
+    "ABSOLUTE CINEMA",
+
+    "WHAT AM I WATCHING",
+
+    "BRO IS COOKED",
+
+    "NO WAY",
+
+    "SKIBIDI VERIFICATION PASSED",
+
+    "💀💀💀",
+
+    "RUN."
+
+];
+
+
+const bottomMessages = [
+
+    "BRO HAS UNLOCKED THE FORBIDDEN FAP",
+
+    "THIS WAS NOT SUPPOSED TO HAPPEN",
+
+    "THE PROPHECY WAS TRUE",
+
+    "YOU SHOULD NOT HAVE REACHED 30",
+
+    "THERE IS NO GOING BACK",
+
+    "THE HEAD KNOWS EVERYTHING",
+
+    "YOUR BRAIN HAS LEFT THE CHAT",
+
+    "THIS IS YOUR FAULT",
+
+    "WHY DID YOU KEEP PLAYING?"
+
+];
+
+
+let sequenceIndex =
+    0;
+
+
+/* =====================================================
+   BRAINROT SEQUENCE
+===================================================== */
+
+function runBrainrotSequence() {
+
+    const interval =
+        setInterval(
+            function() {
+
+                if (
+                    sequenceIndex >=
+                    10
+                ) {
+
+                    clearInterval(
+                        interval
+                    );
+
+
+                    setTimeout(
+                        showFinal,
+                        2500
+                    );
+
+
+                    return;
+
+                }
+
+
+                const randomMessage =
+                    brainrotMessages[
+                        Math.floor(
+                            Math.random() *
+                            brainrotMessages.length
+                        )
+                    ];
+
+
+                message.textContent =
+                    randomMessage;
+
+
+                bottomMessage.textContent =
+                    bottomMessages[
+                        Math.floor(
+                            Math.random() *
+                            bottomMessages.length
+                        )
+                    ];
+
+
+                createFloatingText();
+
+
+                shakeScreen();
+
+
+                sequenceIndex++;
+
+            },
+            900
+        );
+
+}
+
+
+/* =====================================================
+   FLOATING TEXT
+===================================================== */
+
+function createFloatingText() {
+
+    const element =
+        document.createElement(
+            "div"
+        );
+
+
+    element.className =
+        "floating-text";
+
+
+    element.textContent =
+        brainrotMessages[
+            Math.floor(
+                Math.random() *
+                brainrotMessages.length
+            )
+        ];
+
+
+    element.style.left =
+        Math.random() *
+        80 +
+        10 +
+        "%";
+
+
+    element.style.top =
+        Math.random() *
+        70 +
+        15 +
+        "%";
+
+
+    /*
+        Random rotation.
+    */
+
+    element.style.transform =
+        "rotate(" +
+        (
+            Math.random() *
+            60 -
+            30
+        ) +
+        "deg)";
+
+
+    brainrot.appendChild(
+        element
+    );
+
+
+    setTimeout(
+        function() {
+
+            element.remove();
+
+        },
+        1800
+    );
+
+}
+
+
+/* =====================================================
+   SCREEN SHAKE
+===================================================== */
+
+function shakeScreen() {
+
+    screen.classList.remove(
+        "shake"
+    );
+
+
+    /*
+        Force animation restart.
+    */
+
+    void screen.offsetWidth;
+
+
+    screen.classList.add(
+        "shake"
+    );
+
+}
+
+
+/* =====================================================
+   FINAL SCREEN
+===================================================== */
+
+function showFinal() {
+
+    brainrotAudio.pause();
+
+    brainrotAudio.currentTime =
+        0;
+
+
+    brainrot.style.display =
+        "none";
+
+
+    final.style.display =
+        "flex";
+
+}
+
+
+/* =====================================================
+   RETURN
+===================================================== */
+
+returnButton.addEventListener(
+    "click",
+    function() {
+
+        window.location.href =
+            "index.html";
+
+    }
+);
+
+
+/* =====================================================
+   CLICK ANYWHERE
+===================================================== */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        /* A direct click satisfies browser audio-autoplay rules. */
+        if (
+            intro.style.display !== "none" ||
+            brainrot.style.display === "flex"
+        ) {
+
+            playBrainrotAudio();
+
+        }
+
+        /*
+            Don't interfere with the
+            return button.
+        */
+
+        if (
+            event.target ===
+            returnButton
+        ) {
+
+            return;
+
+        }
+
+
+        /*
+            During brainrot, clicking
+            creates another random message.
+        */
+
+        if (
+            brainrot.style.display ===
+            "flex"
+        ) {
+
+            message.textContent =
+                brainrotMessages[
+                    Math.floor(
+                        Math.random() *
+                        brainrotMessages.length
+                    )
+                ];
+
+
+            createFloatingText();
+
+            shakeScreen();
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>
