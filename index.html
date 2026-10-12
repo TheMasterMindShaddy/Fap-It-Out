@@ -269,10 +269,6 @@
 
 "use strict";
 
-/* =========================================================
-   SETUP
-========================================================= */
-
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
@@ -291,9 +287,7 @@ const finalScore = document.getElementById("final-score");
 const highScoreText = document.getElementById("high-score");
 
 
-/* =========================================================
-   SOUND
-========================================================= */
+/* SOUND */
 
 const flapSound = new Audio("fap.mp3");
 const backgroundMusic = new Audio("bg.mp3");
@@ -306,11 +300,9 @@ backgroundMusic.volume = 0.12;
 
 function playFlapSound() {
 
-    /* Rewind so quick consecutive taps each make a sound. */
     flapSound.currentTime = 0;
 
     flapSound.play().catch(function() {
-        /* Browsers can block audio until a user gesture. */
     });
 
 }
@@ -318,15 +310,12 @@ function playFlapSound() {
 function playBackgroundMusic() {
 
     backgroundMusic.play().catch(function() {
-        /* It will start on the next user-initiated game start. */
     });
 
 }
 
 
-/* =========================================================
-   PLAYER IMAGE
-========================================================= */
+/* PLAYER IMAGE */
 
 const playerImage = new Image();
 
@@ -337,9 +326,7 @@ const pipeImage = new Image();
 pipeImage.src = "dick.png";
 
 
-/* =========================================================
-   GAME CONSTANTS
-========================================================= */
+/* GAME CONSTANTS */
 
 const WIDTH = canvas.width;
 const HEIGHT = canvas.height;
@@ -353,9 +340,7 @@ const PIPE_GAP = 175;
 const PIPE_DISTANCE = 250;
 
 
-/* =========================================================
-   GAME VARIABLES
-========================================================= */
+/*GAME VARIABLES */
 
 let gameRunning = false;
 
@@ -371,13 +356,10 @@ let pipeTimer = 0;
 
 let animationFrame;
 
-/* Challenge mode is enabled only by the main-menu challenge button. */
 let challengeMode = false;
 
 
-/* =========================================================
-   PLAYER
-========================================================= */
+/*PLAYER*/
 
 const player = {
 
@@ -398,16 +380,12 @@ const player = {
 };
 
 
-/* =========================================================
-   PIPES
-========================================================= */
+/*PIPES */
 
 let pipes = [];
 
 
-/* =========================================================
-   RESET GAME
-========================================================= */
+/* RESET GAME */
 
 function resetGame() {
 
@@ -432,9 +410,7 @@ function resetGame() {
 }
 
 
-/* =========================================================
-   START GAME
-========================================================= */
+/* START GAME */
 
 function startGame(enableChallenge = challengeMode) {
 
@@ -457,9 +433,7 @@ function startGame(enableChallenge = challengeMode) {
 }
 
 
-/* =========================================================
-   FLAP
-========================================================= */
+/*FLAP*/
 
 function flap() {
 
@@ -478,9 +452,7 @@ function flap() {
 }
 
 
-/* =========================================================
-   CREATE PIPE
-========================================================= */
+/*  CREATE PIPE */
 
 function createPipe() {
 
@@ -512,9 +484,7 @@ function createPipe() {
 }
 
 
-/* =========================================================
-   UPDATE PLAYER
-========================================================= */
+/* UPDATE PLAYER */
 
 function updatePlayer(delta) {
 
@@ -523,7 +493,6 @@ function updatePlayer(delta) {
     player.y += player.velocity * delta;
 
 
-    /* Rotation */
 
     player.rotation =
         Math.max(
@@ -534,8 +503,6 @@ function updatePlayer(delta) {
             )
         );
 
-
-    /* Ceiling */
 
     if (
         player.y - player.radius <= 0
@@ -552,16 +519,9 @@ function updatePlayer(delta) {
 }
 
 
-/* =========================================================
-   UPDATE PIPES
-========================================================= */
+/* UPDATE PIPES */
 
 function updatePipes(delta) {
-
-    /*
-        Game gets slightly faster as
-        the player scores.
-    */
 
     const pipeSpeed =
         Math.min(
@@ -576,8 +536,6 @@ function updatePipes(delta) {
 
         pipe.x -= pipeSpeed * delta;
 
-
-        /* Score */
 
         if (
             !pipe.passed &&
@@ -601,8 +559,6 @@ function updatePipes(delta) {
         }
 
 
-        /* Remove pipe */
-
         if (
             pipe.x + PIPE_WIDTH < 0
         ) {
@@ -614,7 +570,6 @@ function updatePipes(delta) {
     }
 
 
-    /* Spawn */
 
     pipeTimer -= delta;
 
@@ -629,9 +584,6 @@ function updatePipes(delta) {
 }
 
 
-/* =========================================================
-   CHALLENGE COMPLETE
-========================================================= */
 
 function completeChallenge() {
 
@@ -647,13 +599,9 @@ function completeChallenge() {
 }
 
 
-/* =========================================================
-   COLLISION DETECTION
-========================================================= */
 
 function checkCollision() {
 
-    /* Ground */
 
     if (
         player.y + player.radius >=
@@ -664,8 +612,6 @@ function checkCollision() {
 
     }
 
-
-    /* Pipes */
 
     for (const pipe of pipes) {
 
@@ -712,10 +658,6 @@ function checkCollision() {
 }
 
 
-/* =========================================================
-   GAME OVER
-========================================================= */
-
 function endGame() {
 
     gameRunning = false;
@@ -752,13 +694,9 @@ function endGame() {
 }
 
 
-/* =========================================================
-   DRAW BACKGROUND
-========================================================= */
 
 function drawBackground() {
 
-    /* Sky */
 
     const gradient =
         ctx.createLinearGradient(
@@ -788,7 +726,6 @@ function drawBackground() {
     );
 
 
-    /* Clouds */
 
     ctx.fillStyle =
         "rgba(255,255,255,0.7)";
@@ -801,11 +738,6 @@ function drawBackground() {
     drawCloud(190, 270, 0.6);
 
 }
-
-
-/* =========================================================
-   CLOUD
-========================================================= */
 
 function drawCloud(x, y, scale) {
 
@@ -848,20 +780,12 @@ function drawCloud(x, y, scale) {
 }
 
 
-/* =========================================================
-   DRAW PIPE
-========================================================= */
-
 function drawPipe(pipe) {
 
     const bottomHeight =
         HEIGHT - GROUND_HEIGHT - pipe.bottom;
 
-    /*
-        dick.png points upward, so the top obstacle is rotated
-        to point down into the gap. The image is stretched only
-        within each pipe section so it always reaches the edge.
-    */
+
     if (
         pipeImage.complete &&
         pipeImage.naturalWidth > 0
@@ -900,7 +824,6 @@ function drawPipe(pipe) {
 
     const capHeight = 14;
 
-    /* Pipe body */
 
     ctx.fillStyle = "#55a83f";
 
@@ -922,7 +845,6 @@ function drawPipe(pipe) {
     );
 
 
-    /* Pipe caps */
 
     ctx.fillStyle = "#67bd4b";
 
@@ -943,7 +865,6 @@ function drawPipe(pipe) {
     );
 
 
-    /* Shadow */
 
     ctx.fillStyle =
         "rgba(0,0,0,0.15)";
@@ -969,9 +890,6 @@ function drawPipe(pipe) {
 }
 
 
-/* =========================================================
-   DRAW GROUND
-========================================================= */
 
 function drawGround() {
 
@@ -979,7 +897,7 @@ function drawGround() {
         HEIGHT - GROUND_HEIGHT;
 
 
-    /* Dirt */
+    
 
     ctx.fillStyle = "#c89b45";
 
@@ -991,7 +909,6 @@ function drawGround() {
     );
 
 
-    /* Grass */
 
     ctx.fillStyle = "#5ca943";
 
@@ -1002,8 +919,6 @@ function drawGround() {
         12
     );
 
-
-    /* Grass details */
 
     ctx.fillStyle = "#3d7f2e";
 
@@ -1025,9 +940,6 @@ function drawGround() {
 }
 
 
-/* =========================================================
-   DRAW PLAYER
-========================================================= */
 
 function drawPlayer() {
 
@@ -1042,11 +954,7 @@ function drawPlayer() {
         player.rotation
     );
 
-    /*
-        Draw the actual head image.
-        NO circular clipping.
-        NO circular outline.
-    */
+
 
     if (
         playerImage.complete &&
@@ -1071,10 +979,6 @@ function drawPlayer() {
 }
 
 
-/* =========================================================
-   DRAW EVERYTHING
-========================================================= */
-
 function draw() {
 
     drawBackground();
@@ -1092,10 +996,6 @@ function draw() {
 }
 
 
-/* =========================================================
-   GAME LOOP
-========================================================= */
-
 function gameLoop(time) {
 
     if (!gameRunning) {
@@ -1106,11 +1006,6 @@ function gameLoop(time) {
     let delta =
         (time - lastTime) / 16.67;
 
-
-    /*
-        Prevent huge jumps if the browser
-        freezes for a moment.
-    */
 
     delta =
         Math.min(delta, 2);
@@ -1148,12 +1043,6 @@ function gameLoop(time) {
 }
 
 
-/* =========================================================
-   INPUT
-========================================================= */
-
-
-/* Keyboard */
 
 document.addEventListener(
     "keydown",
@@ -1188,8 +1077,6 @@ document.addEventListener(
 );
 
 
-/* Mouse */
-
 canvas.addEventListener(
     "mousedown",
     function() {
@@ -1212,7 +1099,6 @@ canvas.addEventListener(
 );
 
 
-/* Touch */
 
 canvas.addEventListener(
     "touchstart",
@@ -1242,8 +1128,6 @@ canvas.addEventListener(
 );
 
 
-/* Buttons */
-
 startButton.addEventListener(
     "click",
     function() {
@@ -1269,10 +1153,6 @@ restartButton.addEventListener(
     startGame
 );
 
-
-/* =========================================================
-   IMAGE LOADING
-========================================================= */
 
 playerImage.onload = function() {
 
@@ -1300,10 +1180,6 @@ playerImage.onerror = function() {
 
 };
 
-
-/* =========================================================
-   INITIAL DRAW
-========================================================= */
 
 resetGame();
 
